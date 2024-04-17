@@ -97,13 +97,54 @@ class ListStrategy {
         `<div>
           <h2>${item.name}</h2>
           <p>${item.country}</p>
-          <p>${item.info}</p>
-          <img src="${item.img}" alt="${item.name}" width="100"  />
-        </div>`
+        </div>
+        <hr>`
       );
     }, "");
   }
 }
 
+class DetailedListStrategy {
+  show(data, element) {
+    element.innerHTML = data.reduce((acc, item) => {
+      return (
+        acc +
+        `<div>
+          <h2>${item.name}</h2>
+          <p>${item.country}</p>
+          <p>${item.info}</p>
+          <img src="${item.img}" alt="${item.name}" width="100"  />
+        </div>
+        <hr>`
+      );
+    }, "");
+  }
+}
+
+class ImageListStrategy {
+  show(data, element) {
+    element.innerHTML = data.reduce((acc, item) => {
+      return (
+        acc +
+        `<div>
+          <img src="${item.img}" alt="${item.name}" width="100"  />
+        </div>
+        `
+      );
+    }, "");
+  }
+}
+
+const strategies = [
+  new ListStrategy(),
+  new DetailedListStrategy(),
+  new ImageListStrategy(),
+];
+
 const info = new InfoContext(new ListStrategy(), data, content);
 info.show();
+
+slcOptions.addEventListener("change", (event) => {
+  info.setStrategy(strategies[slcOptions.selectedIndex]);
+  info.show();
+});
