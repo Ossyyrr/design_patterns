@@ -1,6 +1,6 @@
 class SaleContext {
   constructor(strategy) {
-    this.strategy = strategy;
+    this.setStrategy(strategy);
   }
 
   setStrategy(strategy) {
