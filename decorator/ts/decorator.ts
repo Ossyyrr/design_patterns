@@ -62,6 +62,13 @@ class StoreProductDecorator extends ProductDecorator {
   }
 }
 
+// Decorator 3
+class HTMLProductDecorator extends ProductDecorator {
+  public getDetail(): string {
+    return ` <h1>Información del producto</h1>  <p>${super.getDetail()}</p>`;
+  }
+}
+
 // Ejecución
 
 const product = new ProductComponent("Cerveza");
@@ -78,3 +85,16 @@ console.log(productWithComercialInfo.getDetail());
 // decorador 2
 const productWithStoreInfo = new StoreProductDecorator(product, 10);
 console.log(productWithStoreInfo.getDetail());
+
+// decorador 2 con decorador 1
+const productWithStoreAndComercialInfo = new StoreProductDecorator(
+  productWithComercialInfo,
+  30
+);
+console.log(productWithStoreAndComercialInfo.getDetail());
+
+// decorador 3 con decorador 2 con decorador 1
+const productWithHTMLInfo = new HTMLProductDecorator(
+  productWithStoreAndComercialInfo
+);
+console.log(productWithHTMLInfo.getDetail());
